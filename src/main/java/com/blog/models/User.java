@@ -2,9 +2,8 @@ package com.blog.models;
 
 import jakarta.persistence.*;
 
-import java.util.HashSet;
+import java.util.Collection;
 import java.util.Objects;
-import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -19,7 +18,13 @@ public class User {
     @JoinColumn(name = "person_id", nullable = false)
     private Person person;
     @ManyToMany(fetch = FetchType.EAGER)
-    private Set<UserRole> roles = new HashSet<>();
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(
+                    name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "role_id", referencedColumnName = "id"))
+    private Collection<Role> roles;
 
     @Override
     public boolean equals(Object o) {
@@ -66,11 +71,12 @@ public class User {
         this.person = person;
     }
 
-    public Set<UserRole> getRoles() {
+    public Collection<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<UserRole> roles) {
+    public void setRoles(Collection<Role> roles) {
         this.roles = roles;
     }
+
 }

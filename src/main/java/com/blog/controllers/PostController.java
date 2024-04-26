@@ -4,6 +4,7 @@ import com.blog.models.Post;
 import com.blog.services.PostServiceImpl;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,9 +19,12 @@ public class PostController {
         this.service = service;
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN','USER')")
     @GetMapping()
     public Page<Post> findAll(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
         return service.findAll(PageRequest.of(page, size));
     }
+
+
 
 }

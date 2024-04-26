@@ -17,4 +17,8 @@ public class PostServiceImpl {
     public Page<Post> findAll(Pageable pageable) {
         return postRepository.findAll(pageable);
     }
+
+    public Post save(Post post) {
+        return postRepository.save(post);
+    }
 }

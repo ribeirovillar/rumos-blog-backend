@@ -1,4 +1,6 @@
 package com.blog.dtos;
 
-public record AuthRequestDTO(String email, String password) {
+import jakarta.validation.constraints.NotNull;
+
+public record AuthRequestDTO(@NotNull String email, @NotNull String password) {
 }

@@ -1,2 +1,5 @@
 # blog-backend
-Java EE Rumos' course 
+Blog project Rumos
+
+# Swagger
+http://localhost:8080/swagger-ui/index.htm
