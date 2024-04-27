@@ -1,13 +1,13 @@
 package com.blog.configs;
 
-import com.blog.enums.RoleEnum;
-import com.blog.exceptions.RoleNotFoundException;
-import com.blog.models.Person;
-import com.blog.models.Role;
-import com.blog.models.User;
-import com.blog.repositories.PersonRepository;
-import com.blog.repositories.RoleRepository;
-import com.blog.repositories.UserRepository;
+import com.blog.domain.enums.RoleEnum;
+import com.blog.domain.exceptions.RoleNotFoundException;
+import com.blog.data.models.Person;
+import com.blog.data.models.Role;
+import com.blog.data.models.User;
+import com.blog.data.repositories.PersonRepository;
+import com.blog.data.repositories.RoleRepository;
+import com.blog.data.repositories.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
