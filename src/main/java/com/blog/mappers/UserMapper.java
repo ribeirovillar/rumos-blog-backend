@@ -22,8 +22,10 @@ public interface UserMapper {
     @Mapping(target = "birthDate", source = "person.birthDate")
     UserRegistrationDTO toUserRegistrationDTO(User user);
 
-    default UsernamePasswordAuthenticationToken toUsernamePasswordAuthenticationToken(AuthRequestDTO authRequestDTO) {
-        return new UsernamePasswordAuthenticationToken(authRequestDTO.email(), authRequestDTO.password());
+    User toUser(AuthRequestDTO dto);
+
+    default UsernamePasswordAuthenticationToken toUsernamePasswordAuthenticationToken(User user) {
+        return new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword());
     }
 
 

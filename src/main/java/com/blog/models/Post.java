@@ -1,5 +1,6 @@
 package com.blog.models;
 
+import com.blog.enums.Category;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;

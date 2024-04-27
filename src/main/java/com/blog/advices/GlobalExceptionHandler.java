@@ -2,6 +2,7 @@ package com.blog.advices;
 
 import com.blog.dtos.ErrorResponseDTO;
 import com.blog.exceptions.EmailAlreadyRegisteredException;
+import com.blog.exceptions.EmailIsNotValidException;
 import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +34,12 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponseDTO> handleExpiredJwtException(ExpiredJwtException e) {
         ErrorResponseDTO errorResponse = new ErrorResponseDTO(HttpStatus.UNAUTHORIZED.value(), HttpStatus.UNAUTHORIZED.getReasonPhrase(), e.getMessage());
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse);
+    }
+
+    @ExceptionHandler(EmailIsNotValidException.class)
+    public ResponseEntity<ErrorResponseDTO> handleEmailValidationImpl(EmailIsNotValidException e) {
+        ErrorResponseDTO errorResponse = new ErrorResponseDTO(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.getReasonPhrase(), e.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
     }
 
 }

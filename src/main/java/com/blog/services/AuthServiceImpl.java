@@ -1,6 +1,6 @@
 package com.blog.services;
 
-import com.blog.dtos.AuthRequestDTO;
+import com.blog.exceptions.RoleNotFoundException;
 import com.blog.mappers.UserMapper;
 import com.blog.models.Person;
 import com.blog.models.Role;
@@ -48,12 +48,12 @@ public class AuthServiceImpl {
         return createUser(user);
     }
 
-    public String login(AuthRequestDTO authRequestDTO) {
+    public String login(User user) {
         Authentication authentication =
                 authenticationManager
-                        .authenticate(mapper.toUsernamePasswordAuthenticationToken(authRequestDTO));
+                        .authenticate(mapper.toUsernamePasswordAuthenticationToken(user));
         if (authentication.isAuthenticated()) {
-            return jwtService.GenerateToken(authRequestDTO.email());
+            return jwtService.GenerateToken(user.getEmail());
         } else {
             throw new UsernameNotFoundException("User not found");
         }
@@ -64,19 +64,13 @@ public class AuthServiceImpl {
     }
 
     protected User createUser(User user) {
-
         user.setRoles(Set.of(retrieveRoleUser()));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
     protected Role retrieveRoleUser() {
-        return roleRepository
-                .findByName(com.blog.enums.Role.ROLE_USER.name())
-                .orElseGet(() -> {
-                    Role roleToCreate = new Role();
-                    roleToCreate.setName(com.blog.enums.Role.ROLE_USER.name());
-                    return roleRepository.save(roleToCreate);
-                });
+        return roleRepository.findByName(com.blog.enums.Role.ROLE_USER.name())
+                .orElseThrow(() -> new RoleNotFoundException(com.blog.enums.Role.ROLE_USER.name()));
     }
 }

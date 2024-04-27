@@ -1,4 +1,4 @@
-package com.blog.models;
+package com.blog.enums;
 
 public enum Category {
     SCIENCE,

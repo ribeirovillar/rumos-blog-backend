@@ -1,5 +1,6 @@
 package com.blog.mappers;
 
+import com.blog.dtos.AuthRequestDTO;
 import com.blog.dtos.UserRegistrationDTO;
 import com.blog.models.Person;
 import com.blog.models.User;
@@ -10,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-04-26T20:49:26+0100",
+    date = "2024-04-27T10:38:11+0100",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 22.0.1 (Oracle Corporation)"
 )
 @Component
@@ -55,6 +56,20 @@ public class UserMapperImpl implements UserMapper {
         UserRegistrationDTO userRegistrationDTO = new UserRegistrationDTO( id, email, password, firstName, lastName, birthDate, role );
 
         return userRegistrationDTO;
+    }
+
+    @Override
+    public User toUser(AuthRequestDTO dto) {
+        if ( dto == null ) {
+            return null;
+        }
+
+        User user = new User();
+
+        user.setEmail( dto.email() );
+        user.setPassword( dto.password() );
+
+        return user;
     }
 
     protected Person userRegistrationDTOToPerson(UserRegistrationDTO userRegistrationDTO) {
