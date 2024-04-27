@@ -2,6 +2,6 @@ package com.blog.domain.services.validations.post;
 
 import com.blog.data.models.Post;
 
-public interface CreatePostValidations {
+public interface PostValidations {
     void validate(Post post);
 }

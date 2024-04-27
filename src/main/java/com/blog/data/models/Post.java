@@ -1,6 +1,8 @@
 package com.blog.data.models;
 
 import com.blog.domain.enums.CategoryEnum;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -26,7 +28,9 @@ public class Post {
     @ManyToOne
     @JoinColumn(name = "author_id")
     private Person author;
+    @JsonIgnore
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private Set<Comment> comments;
 
     @Override

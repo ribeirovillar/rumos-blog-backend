@@ -1,6 +1,8 @@
 package com.blog.data.models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -17,6 +19,8 @@ public class Person {
     private String lastName;
     private Date birthDate;
     @OneToOne(mappedBy = "person")
+    @JsonManagedReference
+    @JsonIgnore
     private User user;
 
     @Override

@@ -11,10 +11,10 @@ public interface PostMapper {
     @Mapping(target = "created", expression = "java(java.time.LocalDateTime.now())")
     Post toPost(PostDTO postDTO);
     @Mapping(target = "author.email", source = "author.user.email")
-    @Mapping(target = "author.name", expression = "java(getAuthorName(person))")
+    @Mapping(target = "author.name", expression = "java(person.getFirstName() + \" \" + person.getLastName())")
     PostDTO toPostDTO(Post post);
 
-    default String getAuthorName(Person person){
+/*    default String getAuthorName(Person person){
         return person.getFirstName() + " " + person.getLastName();
-    }
+    }*/
 }

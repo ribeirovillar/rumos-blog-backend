@@ -1,5 +1,6 @@
 package com.blog.data.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.util.Collection;
@@ -16,6 +17,7 @@ public class User {
     private String password;
     @OneToOne()
     @JoinColumn(name = "person_id", nullable = false)
+    @JsonBackReference
     private Person person;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(

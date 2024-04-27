@@ -4,7 +4,7 @@ import com.blog.data.models.Post;
 import org.springframework.stereotype.Component;
 
 @Component
-public class MandatoryFieldsValidation implements CreatePostValidations {
+public class MandatoryFieldsValidation implements PostValidations {
     @Override
     public void validate(Post post) {
         if (post == null) {

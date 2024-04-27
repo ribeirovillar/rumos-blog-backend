@@ -1,7 +1,7 @@
 package com.blog.data.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-
 
 import java.util.Objects;
 import java.util.UUID;
@@ -16,7 +16,9 @@ public class Comment {
     private String content;
     @ManyToOne
     private Person author;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "post_id", nullable = false)
+    @JsonBackReference
     private Post post;
 
     @Override

@@ -4,7 +4,7 @@ import com.blog.configs.ApplicationContext;
 import com.blog.data.models.Post;
 import com.blog.data.repositories.PostRepository;
 import com.blog.domain.exceptions.PostNotFoundException;
-import com.blog.domain.services.validations.post.CreatePostValidations;
+import com.blog.domain.services.validations.post.PostValidations;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,12 +16,12 @@ import java.util.UUID;
 @Service
 public class PostServiceImpl {
     private final PostRepository postRepository;
-    private final List<CreatePostValidations> createPostValidations;
+    private final List<PostValidations> postValidations;
     private final ApplicationContext applicationContext;
 
-    public PostServiceImpl(PostRepository postRepository, List<CreatePostValidations> createPostValidations, ApplicationContext applicationContext) {
+    public PostServiceImpl(PostRepository postRepository, List<PostValidations> postValidations, ApplicationContext applicationContext) {
         this.postRepository = postRepository;
-        this.createPostValidations = createPostValidations;
+        this.postValidations = postValidations;
         this.applicationContext = applicationContext;
     }
 
@@ -31,13 +31,13 @@ public class PostServiceImpl {
 
     public Post save(Post post) {
         post.setAuthor(applicationContext.getUser().getPerson());
-        createPostValidations.forEach(validation -> validation.validate(post));
+        postValidations.forEach(validation -> validation.validate(post));
         return postRepository.save(post);
     }
 
     public Post update(UUID id, Post post) {
         Post postOriginal = postRepository.findById(id).orElseThrow(() -> new PostNotFoundException(id));
-        createPostValidations.forEach(validation -> validation.validate(post));
+        postValidations.forEach(validation -> validation.validate(post));
         BeanUtils.copyProperties(post, postOriginal, "id", "author", "created");
         return postRepository.save(postOriginal);
     }
