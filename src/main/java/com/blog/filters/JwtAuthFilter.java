@@ -1,7 +1,7 @@
 package com.blog.filters;
 
-import com.blog.services.JwtServiceImpl;
-import com.blog.services.UserDetailsServiceImpl;
+import com.blog.domain.services.JwtServiceImpl;
+import com.blog.domain.services.UserDetailsServiceImpl;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
