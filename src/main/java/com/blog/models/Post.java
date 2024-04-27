@@ -1,6 +1,6 @@
 package com.blog.models;
 
-import com.blog.enums.Category;
+import com.blog.enums.CategoryEnum;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -17,11 +17,11 @@ public class Post {
     private String title;
     private String content;
     private LocalDateTime created;
-    @ElementCollection(targetClass = Category.class)
+    @ElementCollection(targetClass = CategoryEnum.class)
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "post_categories", joinColumns = @JoinColumn(name = "post_id"))
     @Column(name = "category")
-    private Set<Category> categories;
+    private Set<CategoryEnum> categories;
     @ManyToOne
     @JoinColumn(name = "author_id")
     private Person author;
@@ -73,11 +73,11 @@ public class Post {
         this.created = created;
     }
 
-    public Set<Category> getCategories() {
+    public Set<CategoryEnum> getCategories() {
         return categories;
     }
 
-    public void setCategories(Set<Category> categories) {
+    public void setCategories(Set<CategoryEnum> categories) {
         this.categories = categories;
     }
 

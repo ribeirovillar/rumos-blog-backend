@@ -1,5 +1,6 @@
 package com.blog.services;
 
+import com.blog.enums.RoleEnum;
 import com.blog.exceptions.RoleNotFoundException;
 import com.blog.mappers.UserMapper;
 import com.blog.models.Person;
@@ -70,7 +71,7 @@ public class AuthServiceImpl {
     }
 
     protected Role retrieveRoleUser() {
-        return roleRepository.findByName(com.blog.enums.Role.ROLE_USER.name())
-                .orElseThrow(() -> new RoleNotFoundException(com.blog.enums.Role.ROLE_USER.name()));
+        return roleRepository.findByName(RoleEnum.ROLE_USER.name())
+                .orElseThrow(() -> new RoleNotFoundException(RoleEnum.ROLE_USER.name()));
     }
 }

@@ -1,6 +1,6 @@
 package com.blog.enums;
 
-public enum Category {
+public enum CategoryEnum {
     SCIENCE,
     TECHNOLOGY,
     SPORTS,
