@@ -30,7 +30,7 @@ public class PostServiceImpl {
     }
 
     public Post save(Post post) {
-        post.setAuthor(applicationContext.getUser().getPerson());
+        post.setAuthor(applicationContext.getUser());
         postValidations.forEach(validation -> validation.validate(post));
         return postRepository.save(post);
     }

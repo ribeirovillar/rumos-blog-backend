@@ -1,7 +1,7 @@
 package com.blog.domain.services.validations.comment;
 
-import com.blog.data.models.Comment;
+import com.blog.data.models.PostComment;
 
 public interface CommentValidations {
-    void validate(Comment comment);
+    void validate(PostComment postComment);
 }

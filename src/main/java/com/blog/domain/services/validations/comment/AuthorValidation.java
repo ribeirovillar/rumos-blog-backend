@@ -1,25 +1,25 @@
 package com.blog.domain.services.validations.comment;
 
-import com.blog.data.models.Comment;
-import com.blog.data.models.Person;
-import com.blog.data.repositories.PersonRepository;
+import com.blog.data.models.PostComment;
+import com.blog.data.models.User;
+import com.blog.data.repositories.UserRepository;
 import org.springframework.stereotype.Component;
 
 @Component
 public class AuthorValidation implements CommentValidations {
-    private final PersonRepository personRepository;
+    private final UserRepository userRepository;
 
-    public AuthorValidation(PersonRepository personRepository) {
-        this.personRepository = personRepository;
+    public AuthorValidation(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     @Override
-    public void validate(Comment comment) {
-        Person author = comment.getAuthor();
+    public void validate(PostComment postComment) {
+        User author = postComment.getAuthor();
         if (author == null) {
             throw new IllegalArgumentException("Author cannot be null");
         }
-        if (!personRepository.existsById(author.getId())) {
+        if (!userRepository.existsById(author.getId())) {
             throw new IllegalArgumentException("Author does not exist");
         }
     }

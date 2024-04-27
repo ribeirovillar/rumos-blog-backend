@@ -1,7 +1,5 @@
 package com.blog.domain.services;
 
-import com.blog.domain.exceptions.RoleNotFoundException;
-import com.blog.domain.enums.RoleEnum;
 import com.blog.api.mappers.UserMapper;
 import com.blog.data.models.Person;
 import com.blog.data.models.Role;
@@ -9,6 +7,8 @@ import com.blog.data.models.User;
 import com.blog.data.repositories.PersonRepository;
 import com.blog.data.repositories.RoleRepository;
 import com.blog.data.repositories.UserRepository;
+import com.blog.domain.enums.RoleEnum;
+import com.blog.domain.exceptions.RoleNotFoundException;
 import com.blog.domain.services.validations.auth.RegisterValidations;
 import jakarta.transaction.Transactional;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -60,10 +60,6 @@ public class AuthServiceImpl {
         }
     }
 
-    protected void createPerson(Person person) {
-        personRepository.save(person);
-    }
-
     protected User createUser(User user) {
         user.setRoles(Set.of(retrieveRoleUser()));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -73,5 +69,9 @@ public class AuthServiceImpl {
     protected Role retrieveRoleUser() {
         return roleRepository.findByName(RoleEnum.ROLE_USER.name())
                 .orElseThrow(() -> new RoleNotFoundException(RoleEnum.ROLE_USER.name()));
+    }
+
+    protected void createPerson(Person person) {
+        personRepository.save(person);
     }
 }

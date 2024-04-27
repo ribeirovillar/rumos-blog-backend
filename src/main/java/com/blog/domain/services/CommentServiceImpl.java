@@ -1,7 +1,7 @@
 package com.blog.domain.services;
 
 import com.blog.configs.ApplicationContext;
-import com.blog.data.models.Comment;
+import com.blog.data.models.PostComment;
 import com.blog.data.repositories.CommentRepository;
 import com.blog.domain.services.validations.comment.CommentValidations;
 import org.springframework.stereotype.Service;
@@ -20,9 +20,9 @@ public class CommentServiceImpl {
         this.applicationContext = applicationContext;
     }
 
-    public Comment save(Comment comment) {
-        comment.setAuthor(applicationContext.getUser().getPerson());
-        validations.forEach(validation -> validation.validate(comment));
-        return commentRepository.save(comment);
+    public PostComment save(PostComment postComment) {
+        postComment.setAuthor(applicationContext.getUser());
+        validations.forEach(validation -> validation.validate(postComment));
+        return commentRepository.save(postComment);
     }
 }
