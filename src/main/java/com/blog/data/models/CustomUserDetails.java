@@ -62,6 +62,6 @@ public class CustomUserDetails extends User implements UserDetails {
     }
 
     public boolean isAdmin(){
-        return authorities.contains(new SimpleGrantedAuthority("ADMIN"));
+        return authorities.contains(new SimpleGrantedAuthority("ROLE_ADMIN"));
     }
 }

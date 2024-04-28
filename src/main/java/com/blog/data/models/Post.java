@@ -26,7 +26,7 @@ public class Post {
     @ManyToOne
     @JoinColumn(name = "author_id", nullable = false)
     private User author;
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "post_id")
     private Set<PostComment> postComments;
 
