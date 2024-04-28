@@ -1,10 +1,12 @@
 package com.blog.domain.services.validations.comment;
 
 import com.blog.data.models.PostComment;
+import com.blog.domain.services.validations.CreateValidations;
+import com.blog.domain.services.validations.UpdateValidations;
 import org.springframework.stereotype.Component;
 
 @Component
-public class MandatoryFieldValidation implements CommentValidations {
+public class CommentMandatoryFieldValidation implements CreateValidations<PostComment>, UpdateValidations<PostComment> {
     @Override
     public void validate(PostComment postComment) {
         if (postComment == null) {
@@ -13,9 +15,5 @@ public class MandatoryFieldValidation implements CommentValidations {
         if (postComment.getContent() == null) {
             throw new IllegalArgumentException("Content cannot be null");
         }
-        if (postComment.getAuthor() == null) {
-            throw new IllegalArgumentException("Author cannot be null");
-        }
-
     }
 }

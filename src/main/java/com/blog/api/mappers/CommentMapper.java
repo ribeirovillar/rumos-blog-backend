@@ -7,7 +7,7 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface CommentMapper {
-
+    @Mapping(target = "created", expression = "java(java.time.LocalDateTime.now())")
     PostComment toComment(CommentDTO commentDTO);
 
     @Mapping(target = "author.email", source = "author.email")

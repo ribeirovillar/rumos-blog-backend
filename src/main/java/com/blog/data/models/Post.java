@@ -24,7 +24,7 @@ public class Post {
     @Column(name = "category")
     private Set<CategoryEnum> categories;
     @ManyToOne
-    @JoinColumn(name = "author_id")
+    @JoinColumn(name = "author_id", nullable = false)
     private User author;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "post_id")

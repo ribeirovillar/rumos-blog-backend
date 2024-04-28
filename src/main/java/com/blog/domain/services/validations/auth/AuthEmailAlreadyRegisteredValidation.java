@@ -3,14 +3,15 @@ package com.blog.domain.services.validations.auth;
 import com.blog.domain.exceptions.EmailAlreadyRegisteredException;
 import com.blog.data.models.User;
 import com.blog.data.repositories.UserRepository;
+import com.blog.domain.services.validations.CreateValidations;
 import org.springframework.stereotype.Component;
 
 import java.util.Objects;
 @Component
-public class EmailAlreadyRegisteredValidationImpl implements RegisterValidations {
+public class AuthEmailAlreadyRegisteredValidation implements CreateValidations<User> {
     private final UserRepository userRepository;
 
-    public EmailAlreadyRegisteredValidationImpl(UserRepository userRepository) {
+    public AuthEmailAlreadyRegisteredValidation(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 

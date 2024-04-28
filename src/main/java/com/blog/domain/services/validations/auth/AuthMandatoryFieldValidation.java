@@ -1,10 +1,11 @@
 package com.blog.domain.services.validations.auth;
 
 import com.blog.data.models.User;
+import com.blog.domain.services.validations.CreateValidations;
 import org.springframework.stereotype.Component;
 
 @Component
-public class MandatoryFieldsValidationImpl implements RegisterValidations {
+public class AuthMandatoryFieldValidation implements CreateValidations<User> {
     @Override
     public void validate(User user) {
         if (user == null) {

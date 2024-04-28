@@ -4,7 +4,8 @@ import com.blog.configs.ApplicationContext;
 import com.blog.data.models.Post;
 import com.blog.data.repositories.PostRepository;
 import com.blog.domain.exceptions.PostNotFoundException;
-import com.blog.domain.services.validations.post.PostValidations;
+import com.blog.domain.services.validations.CreateValidations;
+import com.blog.domain.services.validations.UpdateValidations;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,12 +17,14 @@ import java.util.UUID;
 @Service
 public class PostServiceImpl {
     private final PostRepository postRepository;
-    private final List<PostValidations> postValidations;
+    private final List<CreateValidations<Post>> createValidations;
+    private final List<UpdateValidations<Post>> updateValidations;
     private final ApplicationContext applicationContext;
 
-    public PostServiceImpl(PostRepository postRepository, List<PostValidations> postValidations, ApplicationContext applicationContext) {
+    public PostServiceImpl(PostRepository postRepository, List<CreateValidations<Post>> createValidations, List<UpdateValidations<Post>> updateValidations, ApplicationContext applicationContext) {
         this.postRepository = postRepository;
-        this.postValidations = postValidations;
+        this.createValidations = createValidations;
+        this.updateValidations = updateValidations;
         this.applicationContext = applicationContext;
     }
 
@@ -31,13 +34,13 @@ public class PostServiceImpl {
 
     public Post save(Post post) {
         post.setAuthor(applicationContext.getUser());
-        postValidations.forEach(validation -> validation.validate(post));
+        createValidations.forEach(validation -> validation.validate(post));
         return postRepository.save(post);
     }
 
     public Post update(UUID id, Post post) {
         Post postOriginal = postRepository.findById(id).orElseThrow(() -> new PostNotFoundException(id));
-        postValidations.forEach(validation -> validation.validate(post));
+        createValidations.forEach(validation -> validation.validate(post));
         BeanUtils.copyProperties(post, postOriginal, "id", "author", "created");
         return postRepository.save(postOriginal);
     }

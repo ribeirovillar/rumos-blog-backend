@@ -9,7 +9,7 @@ import com.blog.data.repositories.RoleRepository;
 import com.blog.data.repositories.UserRepository;
 import com.blog.domain.enums.RoleEnum;
 import com.blog.domain.exceptions.RoleNotFoundException;
-import com.blog.domain.services.validations.auth.RegisterValidations;
+import com.blog.domain.services.validations.CreateValidations;
 import jakarta.transaction.Transactional;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
@@ -28,23 +28,23 @@ public class AuthServiceImpl {
     private final AuthenticationManager authenticationManager;
     private final JwtServiceImpl jwtService;
     private final UserMapper mapper;
-    private final List<RegisterValidations> registerValidations;
+    private final List<CreateValidations<User>> createValidations;
     private final RoleRepository roleRepository;
 
-    public AuthServiceImpl(UserRepository userRepository, PersonRepository personRepository, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager, JwtServiceImpl jwtService, UserMapper mapper, List<RegisterValidations> registerValidations, RoleRepository roleRepository) {
+    public AuthServiceImpl(UserRepository userRepository, PersonRepository personRepository, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager, JwtServiceImpl jwtService, UserMapper mapper, List<CreateValidations<User>> createValidations, RoleRepository roleRepository) {
         this.userRepository = userRepository;
         this.personRepository = personRepository;
         this.passwordEncoder = passwordEncoder;
         this.authenticationManager = authenticationManager;
         this.jwtService = jwtService;
         this.mapper = mapper;
-        this.registerValidations = registerValidations;
+        this.createValidations = createValidations;
         this.roleRepository = roleRepository;
     }
 
     @Transactional
     public User register(User user) {
-        registerValidations.forEach(validation -> validation.validate(user));
+        createValidations.forEach(validation -> validation.validate(user));
         createPerson(user.getPerson());
         return createUser(user);
     }

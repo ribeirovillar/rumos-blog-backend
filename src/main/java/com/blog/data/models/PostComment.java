@@ -2,6 +2,7 @@ package com.blog.data.models;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
@@ -16,6 +17,15 @@ public class PostComment {
     private User author;
     @Column(name = "post_id")
     private UUID postId;
+    private LocalDateTime created;
+
+    public LocalDateTime getCreated() {
+        return created;
+    }
+
+    public void setCreated(LocalDateTime created) {
+        this.created = created;
+    }
 
     public UUID getId() {
         return id;
