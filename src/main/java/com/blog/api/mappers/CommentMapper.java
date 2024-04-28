@@ -1,17 +1,16 @@
 package com.blog.api.mappers;
 
-import com.blog.api.dtos.PostDTO;
-import com.blog.data.models.Post;
+import com.blog.api.dtos.CommentDTO;
+import com.blog.data.models.PostComment;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(componentModel = "spring", uses = {CommentMapper.class})
-public interface PostMapper {
+@Mapper(componentModel = "spring")
+public interface CommentMapper {
     @Mapping(target = "created", expression = "java(java.time.LocalDateTime.now())")
-    Post toPost(PostDTO postDTO);
+    PostComment toComment(CommentDTO commentDTO);
 
     @Mapping(target = "author.email", source = "author.email")
     @Mapping(target = "author.name", expression = "java(user.getPerson().getFirstName() + \" \" + user.getPerson().getLastName())")
-
-    PostDTO toPostDTO(Post post);
+    CommentDTO toCommentDTO(PostComment postComment);
 }

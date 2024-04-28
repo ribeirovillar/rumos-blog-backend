@@ -15,7 +15,6 @@ public interface UserMapper {
     @Mapping(target = "person.birthDate", source = "birthDate")
     User toUser(UserRegistrationDTO dto);
 
-    @Mapping(target = "id", source = "person.id")
     @Mapping(target = "password", ignore = true)
     @Mapping(target = "firstName", source = "person.firstName")
     @Mapping(target = "lastName", source = "person.lastName")

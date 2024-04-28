@@ -2,10 +2,11 @@ package com.blog.domain.services.validations.auth;
 
 import com.blog.domain.exceptions.EmailIsNotValidException;
 import com.blog.data.models.User;
+import com.blog.domain.services.validations.CreateValidations;
 import org.springframework.stereotype.Component;
 
 @Component
-public class EmailValidationImpl implements RegisterValidations {
+public class AuthEmailValidation implements CreateValidations<User> {
     private static final String EMAIL_REGEX = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
 
     @Override

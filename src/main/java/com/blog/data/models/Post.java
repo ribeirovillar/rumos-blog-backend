@@ -24,23 +24,11 @@ public class Post {
     @Column(name = "category")
     private Set<CategoryEnum> categories;
     @ManyToOne
-    @JoinColumn(name = "author_id")
-    private Person author;
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
-    private Set<Comment> comments;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Post post = (Post) o;
-        return Objects.equals(id, post.id) && Objects.equals(title, post.title) && Objects.equals(content, post.content) && Objects.equals(created, post.created) && Objects.equals(categories, post.categories) && Objects.equals(author, post.author) && Objects.equals(comments, post.comments);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, title, content, created, categories, author, comments);
-    }
+    @JoinColumn(name = "author_id", nullable = false)
+    private User author;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "post_id")
+    private Set<PostComment> postComments;
 
     public UUID getId() {
         return id;
@@ -82,19 +70,32 @@ public class Post {
         this.categories = categories;
     }
 
-    public Person getAuthor() {
+    public User getAuthor() {
         return author;
     }
 
-    public void setAuthor(Person author) {
+    public void setAuthor(User author) {
         this.author = author;
     }
 
-    public Set<Comment> getComments() {
-        return comments;
+    public Set<PostComment> getComments() {
+        return postComments;
     }
 
-    public void setComments(Set<Comment> comments) {
-        this.comments = comments;
+    public void setComments(Set<PostComment> postComments) {
+        this.postComments = postComments;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Post post = (Post) o;
+        return Objects.equals(id, post.id) && Objects.equals(title, post.title) && Objects.equals(content, post.content) && Objects.equals(created, post.created) && Objects.equals(categories, post.categories) && Objects.equals(author, post.author) && Objects.equals(postComments, post.postComments);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, title, content, created, categories, author, postComments);
     }
 }
