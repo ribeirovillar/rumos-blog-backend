@@ -1,6 +1,7 @@
 package com.blog.data.models;
 
 import com.blog.domain.enums.CategoryEnum;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -26,9 +27,9 @@ public class Post {
     @ManyToOne
     @JoinColumn(name = "author_id", nullable = false)
     private User author;
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "post_id")
-    private Set<PostComment> postComments;
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private Set<Comment> comments;
 
     public UUID getId() {
         return id;
@@ -78,12 +79,12 @@ public class Post {
         this.author = author;
     }
 
-    public Set<PostComment> getComments() {
-        return postComments;
+    public Set<Comment> getComments() {
+        return comments;
     }
 
-    public void setComments(Set<PostComment> postComments) {
-        this.postComments = postComments;
+    public void setComments(Set<Comment> comments) {
+        this.comments = comments;
     }
 
     @Override
@@ -91,11 +92,11 @@ public class Post {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Post post = (Post) o;
-        return Objects.equals(id, post.id) && Objects.equals(title, post.title) && Objects.equals(content, post.content) && Objects.equals(created, post.created) && Objects.equals(categories, post.categories) && Objects.equals(author, post.author) && Objects.equals(postComments, post.postComments);
+        return Objects.equals(id, post.id) && Objects.equals(title, post.title) && Objects.equals(content, post.content) && Objects.equals(created, post.created) && Objects.equals(categories, post.categories) && Objects.equals(author, post.author) && Objects.equals(comments, post.comments);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, content, created, categories, author, postComments);
+        return Objects.hash(id, title, content, created, categories, author, comments);
     }
 }

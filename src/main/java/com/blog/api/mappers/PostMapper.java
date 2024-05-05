@@ -8,6 +8,7 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring", uses = {CommentMapper.class})
 public interface PostMapper {
     @Mapping(target = "created", expression = "java(java.time.LocalDateTime.now())")
+    @Mapping(target = "id", ignore = true)
     Post toPost(PostDTO postDTO);
 
     @Mapping(target = "author.email", source = "author.email")

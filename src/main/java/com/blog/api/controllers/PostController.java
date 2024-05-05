@@ -8,6 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -31,13 +32,13 @@ public class PostController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping()
-    public ResponseEntity<PostDTO> save(@RequestBody PostDTO request) {
+    public ResponseEntity<PostDTO> save(@Validated @RequestBody PostDTO request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(mapper.toPostDTO(service.save(mapper.toPost(request))));
     }
 
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
-    public ResponseEntity<PostDTO> update(@PathVariable("id") UUID id, @RequestBody PostDTO request) {
+    public ResponseEntity<PostDTO> update(@PathVariable("id") UUID id, @Validated @RequestBody PostDTO request) {
         return ResponseEntity.ok(mapper.toPostDTO(service.update(id, mapper.toPost(request))));
     }
 

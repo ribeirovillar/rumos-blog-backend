@@ -1,6 +1,6 @@
 package com.blog.domain.services.validations.comment;
 
-import com.blog.data.models.PostComment;
+import com.blog.data.models.Comment;
 import com.blog.data.models.User;
 import com.blog.data.repositories.UserRepository;
 import com.blog.domain.services.validations.CreateValidations;
@@ -8,7 +8,7 @@ import com.blog.domain.services.validations.UpdateValidations;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CommentAuthorValidation implements CreateValidations<PostComment>, UpdateValidations<PostComment> {
+public class CommentAuthorValidation implements CreateValidations<Comment>, UpdateValidations<Comment> {
     private final UserRepository userRepository;
 
     public CommentAuthorValidation(UserRepository userRepository) {
@@ -16,8 +16,8 @@ public class CommentAuthorValidation implements CreateValidations<PostComment>, 
     }
 
     @Override
-    public void validate(PostComment postComment) {
-        User author = postComment.getAuthor();
+    public void validate(Comment comment) {
+        User author = comment.getAuthor();
         if (author == null) {
             throw new IllegalArgumentException("Author cannot be null");
         }

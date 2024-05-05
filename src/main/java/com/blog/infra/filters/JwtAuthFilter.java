@@ -1,4 +1,4 @@
-package com.blog.filters;
+package com.blog.infra.filters;
 
 import com.blog.domain.services.JwtServiceImpl;
 import com.blog.domain.services.UserDetailsServiceImpl;

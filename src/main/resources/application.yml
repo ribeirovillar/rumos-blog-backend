@@ -2,14 +2,12 @@ spring:
   application:
     name: blog
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/blog
-    username: root
-    password: root
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: { DATABASE_URL:jdbc:postgresql://localhost:5432/blog }
+    username: { DATABASE_USER:dbuser }
+    password: { DATABASE_PASSWORD:password }
+    driver-class-name: org.postgresql.Driver
   jpa:
     show-sql: true
-    hibernate:
-      ddl-auto: create
   properties:
     javax.persistence.schema-generation.scripts.action: drop-and-create
     jakarta.persistence.schema-generation.scripts.create-target: create.sql
@@ -19,9 +17,15 @@ spring:
   jackson:
     serialization:
       FAIL_ON_EMPTY_BEANS: false
+  flyway:
+    enabled: true
+    url: { FLYWAY_DATABASE_URL:jdbc:postgresql://localhost:5432/blog }
+    user: { FLYWAY_DATABASE_USER:dbuser }
+    password: { FLYWAY_DATABASE_PASSWORD:password }
 
 jwt:
   secret: ${JWT_SECRET:9a4f2c8d3b7a1e6f45c8a0b3f267d8b1d4e6f3c8a9d2b5f8e3a9c8b5f6v8a3d9}
+  expiration: ${JWT_EXPIRATION:604800000}
 logging:
   level:
     org:

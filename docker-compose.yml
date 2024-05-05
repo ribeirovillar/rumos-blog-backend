@@ -1,26 +1,30 @@
-version: '3.7'
+version: '3.9'
 services:
-  mysql:
-    image: mysql:latest
+  postgres:
+    image: postgres:latest
     restart: always
-    container_name: MySQL
+    container_name: Postgres
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: blog
-      MYSQL_USER: dbuser
-      MYSQL_PASSWORD: root
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: blog
+      POSTGRES_USER: dbuser
     ports:
-      - "3306:3306"
+      - "5432:5432"
     volumes:
-      - mysql_data:/var/lib/mysql
-  phpmyadmin:
-    image: phpmyadmin:5.2.0
-    container_name: PhpMyAdmin   
+      - postgres_data:/var/lib/postgresql/data
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: PgAdmin
     restart: always
     ports:
-      - 5013:80
+      - 5050:80
     environment:
-      - PMA_ARBITRARY=1
+      PGADMIN_DEFAULT_EMAIL: email@fake.com
+      PGADMIN_DEFAULT_PASSWORD: password
+    depends_on:
+      - postgres
+volumes:
+  postgres_data:
 #  app:
 #    build: .
 #    container_name: BlogBackendApp
@@ -37,5 +41,3 @@ services:
 #      - MYSQL_PASSWORD=root
 #      - MYSQL_DATABASE=blog
 #      - MYSQL_PORT=3306
-volumes:
-  mysql_data:
