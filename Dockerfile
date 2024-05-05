@@ -1,6 +1,13 @@
-FROM openjdk:21
+FROM maven:3.8.1-openjdk-17-slim AS build
 
-ARG JAR_FILE=target/*.jar
-COPY ${JAR_FILE} app.jar
+COPY pom.xml /usr/src/app/
+COPY src /usr/src/app/src
 
-ENTRYPOINT ["java","-jar","/app.jar"]
+WORKDIR /usr/src/app/
+RUN mvn package
+
+FROM openjdk:17-slim
+
+COPY --from=build /usr/src/app/target/*.jar /usr/app/app.jar
+
+ENTRYPOINT ["java","-jar","/usr/app/app.jar"]
