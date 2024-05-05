@@ -8,6 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -26,7 +27,7 @@ public class CommentController {
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @PostMapping("/posts/{postId}/comments")
-    public ResponseEntity<CommentDTO> save(@PathVariable("postId") UUID postId, @RequestBody CommentDTO request) {
+    public ResponseEntity<CommentDTO> save(@PathVariable("postId") UUID postId, @Validated @RequestBody CommentDTO request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(mapper.toCommentDTO(service.save(postId, mapper.toComment(request))));
     }
 

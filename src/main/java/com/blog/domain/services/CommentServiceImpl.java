@@ -1,7 +1,7 @@
 package com.blog.domain.services;
 
-import com.blog.configs.ApplicationContext;
-import com.blog.data.models.PostComment;
+import com.blog.infra.configs.ApplicationContext;
+import com.blog.data.models.Comment;
 import com.blog.data.repositories.CommentRepository;
 import com.blog.data.repositories.PostRepository;
 import com.blog.domain.exceptions.CommentNotFoundException;
@@ -20,13 +20,13 @@ import java.util.UUID;
 @Service
 public class CommentServiceImpl {
     private final CommentRepository commentRepository;
-    private final List<CreateValidations<PostComment>> createValidations;
-    private final List<UpdateValidations<PostComment>> updateValidations;
-    private final List<DeleteValidations<PostComment>> deleteValidations;
+    private final List<CreateValidations<Comment>> createValidations;
+    private final List<UpdateValidations<Comment>> updateValidations;
+    private final List<DeleteValidations<Comment>> deleteValidations;
     private final ApplicationContext applicationContext;
     private final PostRepository postRepository;
 
-    public CommentServiceImpl(CommentRepository commentRepository, List<CreateValidations<PostComment>> createValidations, List<UpdateValidations<PostComment>> updateValidations, List<DeleteValidations<PostComment>> deleteValidations, ApplicationContext applicationContext, PostRepository postRepository) {
+    public CommentServiceImpl(CommentRepository commentRepository, List<CreateValidations<Comment>> createValidations, List<UpdateValidations<Comment>> updateValidations, List<DeleteValidations<Comment>> deleteValidations, ApplicationContext applicationContext, PostRepository postRepository) {
         this.commentRepository = commentRepository;
         this.createValidations = createValidations;
         this.updateValidations = updateValidations;
@@ -35,31 +35,30 @@ public class CommentServiceImpl {
         this.postRepository = postRepository;
     }
 
-    public PostComment save(UUID postId, PostComment postComment) {
-        postComment.setPostId(postRepository.findById(postId)
-                .orElseThrow(() -> new PostNotFoundException(postId))
-                .getId());
-        postComment.setAuthor(applicationContext.getUser());
-        createValidations.forEach(validation -> validation.validate(postComment));
-        return commentRepository.save(postComment);
+    public Comment save(UUID postId, Comment comment) {
+        comment.setPost(postRepository.findById(postId)
+                .orElseThrow(() -> new PostNotFoundException(postId)));
+        comment.setAuthor(applicationContext.getUser());
+        createValidations.forEach(validation -> validation.validate(comment));
+        return commentRepository.save(comment);
     }
 
-    public Page<PostComment> findAll(Pageable pageable) {
+    public Page<Comment> findAll(Pageable pageable) {
         return commentRepository.findAll(pageable);
     }
 
-    public PostComment findById(UUID id) {
+    public Comment findById(UUID id) {
         return commentRepository.findById(id).orElseThrow(() -> new CommentNotFoundException(id));
     }
 
     public void delete(UUID id) {
-        PostComment comment = commentRepository.findById(id).orElseThrow(() -> new CommentNotFoundException(id));
+        Comment comment = commentRepository.findById(id).orElseThrow(() -> new CommentNotFoundException(id));
         deleteValidations.forEach(validation -> validation.validate(comment));
         commentRepository.delete(comment);
     }
 
-    public PostComment update(UUID id, PostComment comment) {
-        PostComment commentOriginal = commentRepository.findById(id).orElseThrow(() -> new CommentNotFoundException(id));
+    public Comment update(UUID id, Comment comment) {
+        Comment commentOriginal = commentRepository.findById(id).orElseThrow(() -> new CommentNotFoundException(id));
         updateValidations.forEach(validation -> validation.validate(comment));
         BeanUtils.copyProperties(comment, commentOriginal, "id", "author", "created", "postId");
         return commentRepository.save(commentOriginal);

@@ -1,4 +1,4 @@
-package com.blog.advices;
+package com.blog.infra.advices;
 
 import com.blog.api.dtos.ErrorResponseDTO;
 import com.blog.domain.exceptions.EmailAlreadyRegisteredException;

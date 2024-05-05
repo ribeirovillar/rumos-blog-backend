@@ -54,4 +54,40 @@ public class Role {
     public void setUsers(Collection<User> users) {
         this.users = users;
     }
+
+    public static final class RoleBuilder {
+        private UUID id;
+        private String name;
+        private Collection<User> users;
+
+        private RoleBuilder() {
+        }
+
+        public static RoleBuilder aRole() {
+            return new RoleBuilder();
+        }
+
+        public RoleBuilder withId(UUID id) {
+            this.id = id;
+            return this;
+        }
+
+        public RoleBuilder withName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public RoleBuilder withUsers(Collection<User> users) {
+            this.users = users;
+            return this;
+        }
+
+        public Role build() {
+            Role role = new Role();
+            role.setId(id);
+            role.setName(name);
+            role.setUsers(users);
+            return role;
+        }
+    }
 }

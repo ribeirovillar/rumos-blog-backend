@@ -1,6 +1,6 @@
-package com.blog.configs;
+package com.blog.infra.configs;
 
-import com.blog.filters.JwtAuthFilter;
+import com.blog.infra.filters.JwtAuthFilter;
 import com.blog.domain.services.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

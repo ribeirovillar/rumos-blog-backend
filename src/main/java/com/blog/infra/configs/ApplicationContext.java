@@ -1,4 +1,4 @@
-package com.blog.configs;
+package com.blog.infra.configs;
 
 import com.blog.data.models.CustomUserDetails;
 import com.blog.data.models.User;

@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.UUID;
 
-public record PostDTO(UUID id, @NotNull String title, @NotNull String content, LocalDateTime created, CategoryEnum[] categories,
+public record PostDTO(UUID id, @NotNull String title, @NotNull String content, LocalDateTime created,
+                      CategoryEnum[] categories,
                       AuthorDTO author, Set<CommentDTO> comments) {
 }

@@ -1,13 +1,22 @@
 package com.blog.data.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
 @Table(name = "post_comments")
-public class PostComment {
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
@@ -15,17 +24,11 @@ public class PostComment {
     private String content;
     @ManyToOne
     private User author;
-    @Column(name = "post_id")
-    private UUID postId;
+    @JoinColumn(name = "post_id", nullable = false)
+    @ManyToOne
+    @JsonBackReference
+    private Post post;
     private LocalDateTime created;
-
-    public LocalDateTime getCreated() {
-        return created;
-    }
-
-    public void setCreated(LocalDateTime created) {
-        this.created = created;
-    }
 
     public UUID getId() {
         return id;
@@ -51,11 +54,19 @@ public class PostComment {
         this.author = author;
     }
 
-    public UUID getPostId() {
-        return postId;
+    public Post getPost() {
+        return post;
     }
 
-    public void setPostId(UUID postId) {
-        this.postId = postId;
+    public void setPost(Post post) {
+        this.post = post;
+    }
+
+    public LocalDateTime getCreated() {
+        return created;
+    }
+
+    public void setCreated(LocalDateTime created) {
+        this.created = created;
     }
 }
