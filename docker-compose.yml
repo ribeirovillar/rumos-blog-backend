@@ -23,21 +23,23 @@ services:
       PGADMIN_DEFAULT_PASSWORD: password
     depends_on:
       - postgres
+  app:
+    build: .
+    container_name: Backend
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    environment:
+        DATABASE_URL: jdbc:postgresql://postgres:5432/blog
+        DATABASE_USER: dbuser
+        DATABASE_PASSWORD: password
+        JWT_SECRET: 9a4f2c8d3b7a1e6f45c8a0b3f267d8b1d4e6f3c8a9d2b5f8e3a9c8b5f6v8a3d9
+        JWT_EXPIRATION: 604800000
+        FLYWAY_DATABASE_URL: jdbc:postgresql://postgres:5432/blog
+        FLYWAY_DATABASE_USER: dbuser
+        FLYWAY_DATABASE_PASSWORD: password
 volumes:
   postgres_data:
-#  app:
-#    build: .
-#    container_name: BlogBackendApp
-#    restart: always
-#    ports:
-#      - "8080:8080"
-#    depends_on:
-#      - mysql
-#    networks:
-#      - blog-network
-#    environment:
-#      - MYSQL_HOST=mysql
-#      - MYSQL_USER=dbuser
-#      - MYSQL_PASSWORD=root
-#      - MYSQL_DATABASE=blog
-#      - MYSQL_PORT=3306
+

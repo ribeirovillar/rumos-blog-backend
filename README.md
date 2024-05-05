@@ -13,19 +13,34 @@ to the users.
 
 ---
 
-# User Application Credentials
+## Running the Application
 
-### User Admin
+### Requirements
+- Docker-compose
+- Java 17
+- Maven
 
-- Email: admin@fake.com
+### Steps to Run the Application
 
-- Password: password
+1. Open a terminal in the root directory of the project.
 
-### Common User
+2. Run the following command to start the: 
+- PostgreSQL database
+- pgAdmin application
+- Backend application
 
-- Email: user@fake.com
+```bash
+docker-compose up
+```
 
-- Password: Senha@00
+---
+
+## User Application Credentials
+
+| Role  | Email           | Password  |
+|-------|-----------------|-----------|
+| Admin | admin@fake.com  | password  |
+| User  | user@fake.com   | Senha@00  |
 
 ---
 
@@ -43,18 +58,6 @@ tokens for each request based on environment variables.
 
 
 ---
-
-# PostgreSQL Database
-
-Use the [docker compose file](docker-compose.yml) to start the database container and the pdAdmin application.
-
-Open a terminal from the project's root and run the following command:
-
-```bash
-docker-compose up
-```
-
---- 
 
 # pgAdmin
 
