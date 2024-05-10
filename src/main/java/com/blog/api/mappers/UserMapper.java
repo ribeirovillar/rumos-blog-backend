@@ -4,7 +4,6 @@ import com.blog.api.dtos.AuthRequestDTO;
 import com.blog.api.dtos.UserRegistrationDTO;
 import com.blog.data.models.Role;
 import com.blog.data.models.User;
-import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
@@ -12,8 +11,8 @@ import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@Mapper(componentModel = "spring")
 public interface UserMapper {
+
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "person.firstName", source = "firstName")
     @Mapping(target = "person.lastName", source = "lastName")

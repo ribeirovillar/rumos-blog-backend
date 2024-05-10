@@ -34,8 +34,11 @@ public class AdminServiceImpl {
 
     public User revokeUserAdmin(UUID userId) {
         User user = userRepository.findById(userId).orElseThrow();
-        user.getRoles().remove(retrieveRoleAdmin());
-        return userRepository.save(user);
+        if (isUserAdmin(user)) {
+            user.getRoles().remove(retrieveRoleAdmin());
+            user = userRepository.save(user);
+        }
+        return user;
     }
 
     protected Role retrieveRoleAdmin() {
@@ -45,5 +48,9 @@ public class AdminServiceImpl {
                 .withId(RoleEnum.ROLE_ADMIN.getId())
                 .withName(RoleEnum.ROLE_ADMIN.name())
                 .build();
+    }
+
+    protected boolean isUserAdmin(User user) {
+        return user.getRoles().stream().anyMatch(role -> role.getId().equals(RoleEnum.ROLE_ADMIN.getId()));
     }
 }
