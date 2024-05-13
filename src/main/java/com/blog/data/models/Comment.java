@@ -2,24 +2,13 @@ package com.blog.data.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-import java.time.LocalDateTime;
-import java.util.UUID;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "post_comments")
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-public class Comment {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+public class Comment extends BaseEntity implements Serializable {
+
     @Column(columnDefinition = "TEXT")
     private String content;
     @ManyToOne
@@ -28,15 +17,6 @@ public class Comment {
     @ManyToOne
     @JsonBackReference
     private Post post;
-    private LocalDateTime created;
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
 
     public String getContent() {
         return content;
@@ -61,12 +41,5 @@ public class Comment {
     public void setPost(Post post) {
         this.post = post;
     }
-
-    public LocalDateTime getCreated() {
-        return created;
-    }
-
-    public void setCreated(LocalDateTime created) {
-        this.created = created;
-    }
+    
 }

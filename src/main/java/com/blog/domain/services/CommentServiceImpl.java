@@ -1,6 +1,5 @@
 package com.blog.domain.services;
 
-import com.blog.infra.configs.ApplicationContext;
 import com.blog.data.models.Comment;
 import com.blog.data.repositories.CommentRepository;
 import com.blog.data.repositories.PostRepository;
@@ -9,6 +8,7 @@ import com.blog.domain.exceptions.PostNotFoundException;
 import com.blog.domain.services.validations.CreateValidations;
 import com.blog.domain.services.validations.DeleteValidations;
 import com.blog.domain.services.validations.UpdateValidations;
+import com.blog.infra.configs.ApplicationContext;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

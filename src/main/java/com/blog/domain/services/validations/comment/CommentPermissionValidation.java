@@ -1,10 +1,10 @@
 package com.blog.domain.services.validations.comment;
 
-import com.blog.infra.configs.ApplicationContext;
 import com.blog.data.models.Comment;
 import com.blog.data.models.CustomUserDetails;
 import com.blog.domain.services.validations.DeleteValidations;
 import com.blog.domain.services.validations.UpdateValidations;
+import com.blog.infra.configs.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 @Component

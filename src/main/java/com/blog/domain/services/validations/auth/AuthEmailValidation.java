@@ -1,7 +1,7 @@
 package com.blog.domain.services.validations.auth;
 
-import com.blog.domain.exceptions.EmailIsNotValidException;
 import com.blog.data.models.User;
+import com.blog.domain.exceptions.EmailIsNotValidException;
 import com.blog.domain.services.validations.CreateValidations;
 import org.springframework.stereotype.Component;
 

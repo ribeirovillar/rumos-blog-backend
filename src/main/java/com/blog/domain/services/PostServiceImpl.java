@@ -1,11 +1,11 @@
 package com.blog.domain.services;
 
-import com.blog.infra.configs.ApplicationContext;
 import com.blog.data.models.Post;
 import com.blog.data.repositories.PostRepository;
 import com.blog.domain.exceptions.PostNotFoundException;
 import com.blog.domain.services.validations.CreateValidations;
 import com.blog.domain.services.validations.UpdateValidations;
+import com.blog.infra.configs.ApplicationContext;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
@@ -41,7 +41,7 @@ public class PostServiceImpl {
 
     public Post update(UUID id, Post post) {
         Post postOriginal = postRepository.findById(id).orElseThrow(() -> new PostNotFoundException(id));
-        createValidations.forEach(validation -> validation.validate(post));
+        updateValidations.forEach(validation -> validation.validate(post));
         BeanUtils.copyProperties(post, postOriginal, "id", "author", "created", "postComments");
         return postRepository.save(postOriginal);
     }

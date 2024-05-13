@@ -2,8 +2,10 @@ package com.blog.api.mappers;
 
 import com.blog.api.dtos.PostDTO;
 import com.blog.data.models.Post;
+import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
+@Mapper(componentModel = "spring")
 public interface PostMapper {
 
     @Mapping(target = "created", expression = "java(java.time.LocalDateTime.now())")
