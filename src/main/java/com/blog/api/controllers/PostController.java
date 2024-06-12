@@ -5,6 +5,7 @@ import com.blog.api.mappers.PostMapper;
 import com.blog.domain.services.PostServiceImpl;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -26,8 +27,11 @@ public class PostController {
 
     @PreAuthorize("hasAnyRole('ADMIN','USER')")
     @GetMapping()
-    public Page<PostDTO> findAll(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
-        return service.findAll(PageRequest.of(page, size)).map(mapper::toPostDTO);
+    public Page<PostDTO> findAll(@RequestParam(defaultValue = "0") int page,
+                                 @RequestParam(defaultValue = "10") int size,
+                                 @RequestParam(defaultValue = "created") String sortBy,
+                                 @RequestParam(defaultValue = "desc") String order) {
+        return service.findAll(PageRequest.of(page, size, Sort.by(Sort.Direction.fromString(order), sortBy))).map(mapper::toPostDTO);
     }
 
     @PreAuthorize("hasRole('ADMIN')")

@@ -2,14 +2,13 @@ package com.blog.api.controllers;
 
 import com.blog.api.dtos.UserRegistrationDTO;
 import com.blog.api.mappers.UserMapper;
+import com.blog.data.models.Role;
 import com.blog.domain.services.AdminServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -33,5 +32,16 @@ public class AdminController {
     @PostMapping("/revoke/{userId}")
     public ResponseEntity<UserRegistrationDTO> revokeUserAdmin(@PathVariable("userId") UUID userId) {
         return ResponseEntity.ok(mapper.toUserRegistrationDTO(service.revokeUserAdmin(userId)));
+    }
+
+    @GetMapping("/user-id/{userId}/roles")
+    public ResponseEntity<List<String>> getUserRoles(@PathVariable("userId") UUID userId) {
+        return ResponseEntity.ok(service.getUserRoles(userId).stream().map(Role::getName).toList());
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/users")
+    public ResponseEntity<List<UserRegistrationDTO>> getUsers() {
+        return ResponseEntity.ok(service.getUsers().stream().map(mapper::toUserRegistrationDTO).toList());
     }
 }

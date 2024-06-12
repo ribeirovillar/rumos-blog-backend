@@ -1,6 +1,7 @@
 package com.blog.domain.services;
 
 import com.blog.api.mappers.UserMapper;
+import com.blog.data.models.CustomUserDetails;
 import com.blog.data.models.Person;
 import com.blog.data.models.Role;
 import com.blog.data.models.User;
@@ -54,7 +55,7 @@ public class AuthServiceImpl {
                 authenticationManager
                         .authenticate(mapper.toUsernamePasswordAuthenticationToken(user));
         if (authentication.isAuthenticated()) {
-            return jwtService.GenerateToken(user.getEmail());
+            return jwtService.GenerateToken((CustomUserDetails) authentication.getPrincipal());
         } else {
             throw new UsernameNotFoundException("User not found");
         }
