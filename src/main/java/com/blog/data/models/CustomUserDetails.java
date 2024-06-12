@@ -10,11 +10,12 @@ import java.util.List;
 
 public class CustomUserDetails extends User implements UserDetails {
 
-    private String email;
-    private String password;
+    private final String email;
+    private final String password;
     Collection<? extends GrantedAuthority> authorities;
 
     public CustomUserDetails(User user) {
+        super.setEmail(user.getEmail());
         this.email = user.getEmail();
         this.password= user.getPassword();
         List<GrantedAuthority> auths = new ArrayList<>();

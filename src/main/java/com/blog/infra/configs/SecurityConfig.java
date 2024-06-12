@@ -25,7 +25,7 @@ public class SecurityConfig {
 
     private final JwtAuthFilter jwtAuthFilter;
     private final UserDetailsServiceImpl userDetailsServiceImpl;
-    private static final String[] PERMIT_LIST = {
+    public static final String[] PERMIT_LIST = {
             "/api/v1/auth/register",
             "/api/v1/auth/login",
             "/swagger-ui/**",

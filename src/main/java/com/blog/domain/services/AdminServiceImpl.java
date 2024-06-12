@@ -4,11 +4,10 @@ import com.blog.data.models.Role;
 import com.blog.data.models.User;
 import com.blog.data.repositories.UserRepository;
 import com.blog.domain.enums.RoleEnum;
+import com.blog.domain.exceptions.UserNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.Objects;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class AdminServiceImpl {
@@ -45,5 +44,14 @@ public class AdminServiceImpl {
                 .withId(RoleEnum.ROLE_ADMIN.getId())
                 .withName(RoleEnum.ROLE_ADMIN.name())
                 .build();
+    }
+
+    public Collection<Role> getUserRoles(UUID userId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException(userId));
+        return Optional.ofNullable(user.getRoles()).orElse(Collections.emptySet());
+    }
+
+    public List<User> getUsers() {
+        return userRepository.findAll();
     }
 }

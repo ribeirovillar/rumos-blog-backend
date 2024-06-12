@@ -14,17 +14,17 @@ public class AuthMandatoryFieldValidation implements CreateValidations<User> {
         if (user.getPerson() == null) {
             throw new IllegalArgumentException("Person cannot be null");
         }
-        if (user.getPerson().getFirstName() == null) {
-            throw new IllegalArgumentException("First name cannot be null");
+        if (user.getPerson().getFirstName() == null || user.getPerson().getFirstName().isEmpty()) {
+            throw new IllegalArgumentException("Please, inform a first name");
         }
-        if (user.getPerson().getLastName() == null) {
-            throw new IllegalArgumentException("Last name cannot be null");
+        if (user.getPerson().getLastName() == null || user.getPerson().getLastName().isEmpty()) {
+            throw new IllegalArgumentException("Please, inform a last name");
         }
-        if (user.getEmail() == null) {
-            throw new IllegalArgumentException("Email cannot be null");
+        if (user.getEmail() == null || user.getEmail().isEmpty()) {
+            throw new IllegalArgumentException("Please, inform an email");
         }
-        if (user.getPassword() == null) {
-            throw new IllegalArgumentException("Password cannot be null");
+        if (user.getPassword() == null || user.getPassword().isEmpty()) {
+            throw new IllegalArgumentException("Please, inform a valid password");
         }
         if (user.getPassword().length() < 8) {
             throw new IllegalArgumentException("Password must be at least 8 characters long");

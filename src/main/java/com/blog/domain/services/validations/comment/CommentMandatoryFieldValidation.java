@@ -9,11 +9,8 @@ import org.springframework.stereotype.Component;
 public class CommentMandatoryFieldValidation implements CreateValidations<Comment>, UpdateValidations<Comment> {
     @Override
     public void validate(Comment comment) {
-        if (comment == null) {
-            throw new IllegalArgumentException("Comment cannot be null");
-        }
-        if (comment.getContent() == null) {
-            throw new IllegalArgumentException("Content cannot be null");
+        if (comment == null || comment.getContent() == null || comment.getContent().isEmpty()) {
+            throw new IllegalArgumentException("Please, inform a comment content");
         }
     }
 }
