@@ -41,8 +41,8 @@ public class PostServiceImpl {
 
     public Post update(UUID id, Post post) {
         Post postOriginal = postRepository.findById(id).orElseThrow(() -> new PostNotFoundException(id));
-        createValidations.forEach(validation -> validation.validate(post));
         BeanUtils.copyProperties(post, postOriginal, "id", "author", "created", "postComments");
+        createValidations.forEach(validation -> validation.validate(postOriginal));
         return postRepository.save(postOriginal);
     }
 
