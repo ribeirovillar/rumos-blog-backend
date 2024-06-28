@@ -15,6 +15,36 @@ to the users.
 
 ## Running the Application
 
+There are two ways to start the application:
+
+### Option 1: Using the Shell Script
+
+A shell script is provided in the root directory of the project to automate the process of cloning the repositories and starting the projects. To use the script:
+
+### Requirements
+- docker-compose
+- Java 17
+- Maven
+- git
+- docker
+- npm
+
+1. Download the [`start-project.sh`](https://github.com/ribeirovillar/rumos-blog-backend/blob/master/start-project.sh)  script to your desired directory.
+2. Open a terminal in the directory where the script was downloaded.
+3. Run the following command to give execution permissions to the script:
+```bash
+chmod +x start-project.sh
+```
+4. Run the script with the following command:
+```bash
+./start-project.sh
+```
+
+### Option 2: Manual Setup
+If you prefer to set up the project manually, follow these steps:
+Open a terminal in the root directory of the project.
+Clone the repository:
+
 ### Requirements
 - Docker-compose
 - Java 17
@@ -30,7 +60,7 @@ to the users.
 - Backend application
 
 ```bash
-docker-compose up
+docker-compose up -d
 ```
 
 ---
