@@ -15,19 +15,21 @@ to the users.
 
 ## Running the Application
 
-There are two ways to start the application:
+There are three ways to start the application:
 
 ### Option 1: Using the Shell Script
 
-A shell script is provided in the root directory of the project to automate the process of cloning the repositories and starting the projects. To use the script:
+A shell script is provided in the root directory of the project to automate the process of cloning the repositories and starting the projects.
 
-### Requirements
+#### Requirements
 - docker-compose
 - Java 17
 - Maven
 - git
 - docker
 - npm
+
+#### Steps to Run the Application
 
 1. Download the [`start-project.sh`](https://github.com/ribeirovillar/rumos-blog-backend/blob/master/start-project.sh)  script to your desired directory.
 2. Open a terminal in the directory where the script was downloaded.
@@ -40,27 +42,64 @@ chmod +x start-project.sh
 ./start-project.sh
 ```
 
-### Option 2: Manual Setup
-If you prefer to set up the project manually, follow these steps:
-Open a terminal in the root directory of the project.
-Clone the repository:
+### Option 2: Using Docker Compose
 
-### Requirements
+You can use Docker Compose to start the application:
+
+#### Requirements
 - Docker-compose
 - Java 17
 - Maven
 
-### Steps to Run the Application
+#### Steps to Run the Application
 
 1. Open a terminal in the root directory of the project.
-
-2. Run the following command to start the: 
-- PostgreSQL database
-- pgAdmin application
-- Backend application
-
+2. Clone the repository:
+```bash
+git clone https://github.com/ribeirovillar/rumos-blog-backend.git
+```
+3. Navigate to the project directory:
+```bash
+cd rumos-blog-backend
+```
+4. Run the following command to build and start the containers defined in your `docker-compose.yml`:
 ```bash
 docker-compose up -d
+```
+
+### Option 3: Manual Setup
+
+If you prefer to set up the project manually, follow these steps:
+
+#### Requirements
+- Java 17
+- Maven
+- Docker
+- Docker-compose
+- git
+
+#### Steps to Run the Application
+
+1. Open a terminal in the root directory of the project.
+2. Clone the repository:
+```bash
+git clone https://github.com/ribeirovillar/rumos-blog-backend.git
+```
+3. Navigate to the project directory:
+```bash
+cd rumos-blog-backend
+```
+4. Start the PostgreSQL database and pgAdmin application using Docker:
+```bash
+docker-compose up -d postgres pgadmin
+```
+5. Build the project with Maven:
+```bash
+mvn clean install
+```
+6. Run the application:
+```bash
+java -jar target/blog.jar
 ```
 
 ---

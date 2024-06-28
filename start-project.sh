@@ -21,5 +21,4 @@ cd ..
 cd rumos-blog-react
 
 # Install the dependencies and start the frontend
-npm install
-npm start
+docker-compose up -d
